@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
-public class SpriteRendererAnimatorHelper : MonoBehaviour {
+public class SpriteRendererAnimatorHelper : MonoBehaviour, IPointerDownHandler {
 	public int CurrentSheetIndex = 0;
 	private SpriteSheetVariant _currentSheet {
 		get {
@@ -31,6 +32,15 @@ public class SpriteRendererAnimatorHelper : MonoBehaviour {
 			_lastSpriteId = nextSprite.GetInstanceID();
 		}
 	}
+
+	#region IPointerClickHandler implementation
+
+	public void OnPointerDown (PointerEventData eventData)
+	{
+		CurrentSheetIndex = (CurrentSheetIndex+1) % SheetVariants.Length;
+	}
+
+	#endregion
 }
 
 [System.Serializable]
